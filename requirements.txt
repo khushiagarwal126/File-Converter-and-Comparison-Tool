@@ -1,0 +1,26 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# File Converter and Comparison Tool — Python Dependencies
+# ─────────────────────────────────────────────────────────────────────────────
+# Install:  pip install -r requirements.txt
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Web Framework ─────────────────────────────────────────────────────────────
+flask>=3.1.0               # Core web framework (Blueprints, routing, JSON)
+werkzeug>=3.1.0            # WSGI utilities, request/response objects
+
+# ── Settings & Environment ───────────────────────────────────────────────────
+python-dotenv>=1.0.0       # Load .env files into os.environ
+
+# ── HTTP & Utilities ──────────────────────────────────────────────────────────
+requests>=2.33.0           # HTTP client (used in integration tests)
+click>=8.1.0               # CLI support (Flask uses this internally)
+
+# ── File Conversion Libraries (used in later steps) ───────────────────────────
+openpyxl>=3.1.0            # Read/write Excel (.xlsx)
+pandas>=2.0.0              # Tabular data manipulation
+pypdf>=3.0.0               # PDF text extraction
+lxml>=5.0.0                # XML parsing and generation
+tabulate>=0.9.0            # Pretty-print tables in CLI output
+
+# ── Testing ───────────────────────────────────────────────────────────────────
+pytest>=7.0.0              # Test runner
