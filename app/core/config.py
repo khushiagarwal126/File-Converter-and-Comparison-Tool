@@ -9,25 +9,18 @@ anywhere else in the codebase.
 
 Usage:
     from app.core.config import settings
-    print(settings.APP_NAME)
+    print(settings.ALLOWED_EXTENSIONS)
 """
 
 import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Load .env from the project root (two levels up from this file)
 _BASE_DIR = Path(__file__).resolve().parent.parent.parent
 load_dotenv(_BASE_DIR / ".env")
 
 
 class Settings:
-    """
-    Typed, documented application settings.
-    Each attribute maps directly to a .env key.
-    Default values are used when the key is absent from .env.
-    """
-
     # ── Application identity ──────────────────────────────────────────────────
     APP_NAME: str    = os.getenv("APP_NAME", "File Converter and Comparison Tool")
     APP_VERSION: str = os.getenv("APP_VERSION", "1.0.0")
@@ -35,10 +28,9 @@ class Settings:
     DEBUG: bool      = os.getenv("DEBUG", "True").strip().lower() == "true"
 
     # ── API ───────────────────────────────────────────────────────────────────
-    API_PREFIX: str  = os.getenv("API_PREFIX", "/api/v1")
+    API_PREFIX: str = os.getenv("API_PREFIX", "/api/v1")
 
     # ── CORS ──────────────────────────────────────────────────────────────────
-    # Stored in .env as a comma-separated string; parsed into a list here.
     ALLOWED_ORIGINS: list = [
         o.strip()
         for o in os.getenv(
@@ -52,6 +44,10 @@ class Settings:
     UPLOAD_DIR: str         = os.getenv("UPLOAD_DIR", "uploads/temp")
     OUTPUT_DIR: str         = os.getenv("OUTPUT_DIR", "outputs")
     MAX_UPLOAD_SIZE_MB: int = int(os.getenv("MAX_UPLOAD_SIZE_MB", "50"))
+
+    # Allowed file extensions (lowercase, without the leading dot).
+    # Every upload is validated against this set before being saved.
+    ALLOWED_EXTENSIONS: set = {"csv", "xlsx", "json", "xml", "txt", "pdf"}
 
     # ── Logging ───────────────────────────────────────────────────────────────
     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")
@@ -67,5 +63,4 @@ class Settings:
         return self.APP_ENV.strip().lower() == "production"
 
 
-# Singleton — import this everywhere in the project
 settings = Settings()
