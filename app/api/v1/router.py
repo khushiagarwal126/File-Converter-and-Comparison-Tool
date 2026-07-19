@@ -15,12 +15,10 @@ To add a new endpoint group:
 """
 
 from flask import Flask
-from app.api.v1.endpoints.health  import health_bp
-from app.api.v1.endpoints.upload  import upload_bp
-from app.api.v1.endpoints.convert import convert_bp
-
-# Future Blueprint imports:
-# from app.api.v1.endpoints.compare import compare_bp
+from app.api.v1.endpoints.health   import health_bp
+from app.api.v1.endpoints.upload   import upload_bp
+from app.api.v1.endpoints.convert  import convert_bp
+from app.api.v1.endpoints.compare  import compare_bp
 
 
 def register_blueprints(app: Flask, prefix: str) -> None:
@@ -34,6 +32,4 @@ def register_blueprints(app: Flask, prefix: str) -> None:
     app.register_blueprint(health_bp,  url_prefix=prefix)
     app.register_blueprint(upload_bp,  url_prefix=prefix)
     app.register_blueprint(convert_bp, url_prefix=prefix)
-
-    # Uncomment as each module is built:
-    # app.register_blueprint(compare_bp, url_prefix=prefix)
+    app.register_blueprint(compare_bp, url_prefix=prefix)
